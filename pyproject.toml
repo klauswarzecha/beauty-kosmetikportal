@@ -1,0 +1,7 @@
+[project]
+name = "kosmetikportal"
+version = "0.1.0"
+description = "Crawlers for the German portal kosmetikportal.net"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []

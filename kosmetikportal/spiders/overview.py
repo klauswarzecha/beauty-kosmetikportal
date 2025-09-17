@@ -109,6 +109,7 @@ class OverviewSpider(Spider):
                 loader.add_value("detail_url", detail)
 
                 contact = right.xpath("./p/text()").getall()
+                loader.add_value("contact_raw", contact)
 
                 homepage = right.xpath(".//a[contains(@class, 'navitop')]/@href").get()
                 loader.add_value("homepage", homepage)

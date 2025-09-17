@@ -78,9 +78,10 @@ class SplitContactPipeline:
 
         if self._postal_city_re:
             match = self._postal_city_re.match(first_segment)
-            postalcode = match.group("postalcode")
-            city = match.group("city").strip()
-            return postalcode, city
+            if match:
+                postalcode = match.group("postalcode")
+                city = match.group("city").strip()
+                return postalcode, city
 
         return None, first_segment
 
@@ -99,7 +100,6 @@ class SplitContactPipeline:
             case [street, city, phone, *other]:
                 print(other)
                 return street, city, phone
-
             case _:
                 street = sequence[0] if len(sequence) >= 1 else None
                 city = sequence[1] if len(sequence) >= 2 else None

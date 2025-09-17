@@ -27,31 +27,6 @@ PATH = "/kosmetik-studio-suchen.php"
 FRAGMENT = ""
 
 
-custom_settings = {
-    "FEED_EXPORT_ENCODING": "utf-8",
-    "FEEDS": {
-        "exports/%(name)s-%(time)s.jl": {
-            "format": "jsonlines",
-            "overwrite": False,
-        }
-    },
-    "FEED_EXPORT_FIELDS": [
-        "studio_id",
-        "studio_name",
-        "country_code",
-        "detail_url",
-        "homepage",
-        "contact_raw",
-        "street",
-        "postalcode",
-        "location",
-        "phone",
-        "lastvisited",
-        "portal",
-    ],
-}
-
-
 def build_search_url(params: dict[str, str]) -> str:
     """Return the GET search URL for given query parameters."""
     query = urlencode(params, doseq=True)

@@ -54,18 +54,18 @@ DEFAULT_REQUEST_HEADERS: dict[str, str] = {
 
 ITEM_PIPELINES = {
     "kosmetikportal.pipelines.EnrichItemPipeline": 100,
+    "kosmetikportal.pipelines.SplitContactPipeline": 200,
 }
 
-# Enable and configure the AutoThrottle extension (disabled by default)
-# See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-# AUTOTHROTTLE_ENABLED = True
+
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-# AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-# AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
 # AUTOTHROTTLE_DEBUG = False
 
@@ -77,5 +77,30 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
-# Set settings whose default value is deprecated to a future-proof value
+
 FEED_EXPORT_ENCODING = "utf-8"
+FEED_EXPORT_FIELDS = [
+    "studio_id",
+    "studio_name",
+    "detail_url",
+    "homepage",
+    "contact_raw",
+    "country_code",
+    "street",
+    "postalcode",
+    "location",
+    "phone",
+    "lastvisited",
+    "portal",
+]
+
+FEED_URI_PARAMS = "kosmetikportal.utils.feed_uri_params"
+
+FEEDS = {
+    "exports/%(portal)s-%(name)s-%(country_code)s-%(timestamp)s.jsonl": {
+        "format": "jsonlines",
+        "overwrite": False,
+        "store_empty": False,
+        "item_export_kwargs": {"ensure_ascii": False},
+    }
+}
